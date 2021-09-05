@@ -1,0 +1,13 @@
+{
+    "name": "com.eule.mono-logger",
+    "version": "0.1.0",
+    "description": "A better logger for Unity.",
+    "displayName": "mono-logger",
+    "unity": "2021.1",
+    "author": 
+    {
+        "name": "Lennard Beers",
+        "email": "l.beers@outlook.de",
+        "url": "https://lennardbeers.de/"
+    }
+}
