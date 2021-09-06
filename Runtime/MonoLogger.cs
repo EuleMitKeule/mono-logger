@@ -20,6 +20,59 @@ namespace MonoLogger.Runtime
 #endif
         }
 
+        public static void Log(object message, LogType logType = LogType.Log)
+        {
+#if UNITY_EDITOR
+            switch (logType)
+            {
+                case LogType.Log:
+
+                    if (DefaultLogLevel == LogType.Exception ||
+                        DefaultLogLevel == LogType.Error ||
+                        DefaultLogLevel == LogType.Warning ||
+                        DefaultLogLevel == LogType.Assert) return;
+
+                    Debug.Log($"{message}");
+
+                    break;
+                case LogType.Assert:
+
+                    if (DefaultLogLevel == LogType.Exception ||
+                        DefaultLogLevel == LogType.Error ||
+                        DefaultLogLevel == LogType.Warning) return;
+
+                    Debug.LogAssertion($"{message}");
+
+                    break;
+                case LogType.Warning:
+
+                    if (DefaultLogLevel == LogType.Exception ||
+                        DefaultLogLevel == LogType.Error) return;
+
+                    Debug.LogWarning($"{message}");
+
+                    break;
+                case LogType.Error:
+
+                    if (DefaultLogLevel == LogType.Exception) return;
+
+                    Debug.LogError($"{message}");
+
+                    break;
+                case LogType.Exception:
+
+                    if (!(message is Exception exception)) return;
+
+                    Debug.LogException(exception);
+
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(logType), logType, null);
+
+            }
+#endif
+        }
+
         public static void Log(this object obj, object message, LogType logType = LogType.Log)
         {
 #if UNITY_EDITOR
