@@ -20,6 +20,9 @@ namespace MonoLogger.Runtime
 #endif
         }
 
+        public static LogType GetLogLevel(this object obj) =>
+            ObjectToLogLevel.ContainsKey(obj) ? ObjectToLogLevel[obj] : LogType.Warning;
+
         public static void Log(object message, LogType logType = LogType.Log)
         {
 #if UNITY_EDITOR
